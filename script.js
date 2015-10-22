@@ -11,7 +11,7 @@
  * @type {string[]}
  */
 
-/**
+/**!Line 14 - 30- 1 project
  * addClicked - Event Handler when user clicks the add button
  */
 
@@ -29,13 +29,12 @@
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
 
-/**
+/**line 32- 35 2 project
  * calculateAverage - loop through the global student array and calculate average grade and return that value
  * @returns {number}
  */
 
-/**
- * updateData - centralized function to update the average and call student list update
+/** double check lines 37-48 project 3* updateData - centralized function to update the average and call student list update
  */
 
 /**
@@ -48,7 +47,7 @@
  * @param studentObj
  */
 
-/**
+/** line 50-57 project 4 - resetting the entire table to nothing
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
  */
 
