@@ -1,3 +1,47 @@
+var avgGrade = null;
+var studentName = undefined;
+var course = undefined;
+var studentGrade = undefined;
+/* sample of how the data will be compiled.
+
+var student_table = {name:"name",
+                     course:"course",
+                     grade:"grade"
+                    };
+                    there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
+*/
+var student_array = [ /*pushing info into array*/ ];
+
+//onclick add function
+function student_add () {
+    studentName = document.getElementById('studentName').value;
+    course = document.getElementById('course').value;
+    studentGrade = document.getElementById('studentGrade').value;
+        console.log('working');
+        console.log(studentName);
+        console.log(course);
+        console.log(studentGrade);
+
+
+
+}
+function student_cancel () {
+    document.getElementById('studentName').value = '';
+    document.getElementById('course').value = '';
+    document.getElementById('studentGrade').value = '';
+    studentName = undefined;
+    course = undefined;
+    studentGrade = undefined;
+    console.log('cancel working');
+    console.log(studentName);
+    console.log(course);
+    console.log(studentGrade);
+
+}
+
+
+
+
 /**
  * Define all global variables here
  */
@@ -13,15 +57,17 @@
 
 /**!Line 14 - 30- 1 project
  * addClicked - Event Handler when user clicks the add button
+ * example onclick = "id=student_add"
  */
 
 /**
  * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
+ * example onclick = "id=student_cancel"
  */
 
 /**
  * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
- *
+ * object {}; add the students info from previous data entry
  * @return undefined
  */
 
@@ -31,6 +77,7 @@
 
 /**line 32- 35 2 project
  * calculateAverage - loop through the global student array and calculate average grade and return that value
+ *
  * @returns {number}
  */
 
