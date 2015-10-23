@@ -10,7 +10,11 @@ var student_table = {name:"name",
                     };
                     there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
 */
-var student_array = [ /*pushing info into array*/ ];
+//var student_array = [ /*pushing info into array*/ ];
+
+
+
+var student_array = [];
 
 //onclick add function
 function student_add () {
@@ -22,8 +26,14 @@ function student_add () {
         console.log(course);
         console.log(studentGrade);
 
+    var student = {
+        "name": studentName,
+        "course": course,
+        "grade":studentGrade,
+    };
 
-
+    student_array.push(student);
+    console.log(student);
 }
 function student_cancel () {
     document.getElementById('studentName').value = '';
@@ -41,7 +51,8 @@ function student_cancel () {
 
 
 
-
+student_array[i].name.append();
+student_array[i].course.append();
 /**
  * Define all global variables here
  */
@@ -86,9 +97,10 @@ function student_cancel () {
 
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
- */
 
-/**
+ for ( i = 0, i<student_array.length, i++)
+    student_array[i]
+
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
  * into the .student_list tbody
  * @param studentObj
