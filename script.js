@@ -6,7 +6,8 @@ var studentGrade = undefined;
 
 var student_table = {name:"name",
                      course:"course",
-                     grade:"grade"
+                     grade:"grade",
+                     element: //point to certain areas in the table
                     };
                     there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
 */
@@ -38,6 +39,7 @@ function student_cancel () {
     console.log(studentGrade);
 
 }
+// td creation add back into the add button function
 
 
 
