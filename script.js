@@ -2,6 +2,7 @@ var avgGrade = null;
 var studentName = undefined;
 var course = undefined;
 var studentGrade = undefined;
+
 /* sample of how the data will be compiled.
 
 var student_table = {name:"name",
@@ -39,11 +40,47 @@ function student_cancel () {
     console.log(studentGrade);
 
 }
+
 // td creation add back into the add button function
+var new_tr = $('<tr>', {
+    class: student_row
+});
+var td_name = $('<td>', {
+    text: studentName
 
+    });
+var td_course = $('<td>', {
+    text: course
 
+});
+var td_grade = $('<td>', {
+    text: studentGrade
+    });
+var td_operation = $('<td>', {
+    button: "delete",
+    onclick: "student_delete",
+    type: "button",
+    class: "btn btn-danger"
+});
+$(td_tr).append(td_name, td_course, td_grade, td_operation);
+$('tbody').append(td_tr);
+//end td creation
 
+//temp table creation
+/*var student = {};
+student[name] = "studentName";
+student[course] = "course";
+student[grade] = studentGrade;
+student_array.push(student);
+*/
+/*
+target_student = [info in here];
+student_array[target.student].element.addClass('topscore');
+make for loop to find highest (similar to the lowest loop example)
+how to do it w/ an object w/ numbers and had a key of grade ie grade: 80?
+studentGrades[i] > i; i++
 
+ */
 /**
  * Define all global variables here
  */
@@ -94,6 +131,8 @@ function student_cancel () {
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
  * into the .student_list tbody
  * @param studentObj
+ * place into the update studentList section
+ *
  */
 
 /** line 50-57 project 4 - resetting the entire table to nothing
