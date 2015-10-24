@@ -2,6 +2,7 @@ var avgGrade = null;
 var studentName = undefined;
 var course = undefined;
 var studentGrade = undefined;
+var student =null;
 /* sample of how the data will be compiled.
 
 var student_table = {name:"name",
@@ -11,6 +12,15 @@ var student_table = {name:"name",
                     there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
 */
 //var student_array = [ /*pushing info into array*/ ];
+
+var sum =0;
+    for(var i = 0; i<student_array.length; i++){
+        sum += parseInt(studentGrade[i]);
+    }
+
+var avgGrade = sum/studentGrade.length;
+
+console.log(avgGrade);
 
 
 
