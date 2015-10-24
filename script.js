@@ -15,6 +15,7 @@ var student_table = {name:"name",
 var student_array = [ /*pushing info into array*/ ];
 
 //onclick add function
+
 function student_add () {
     studentName = document.getElementById('studentName').value;
     course = document.getElementById('course').value;
@@ -23,10 +24,48 @@ function student_add () {
         console.log(studentName);
         console.log(course);
         console.log(studentGrade);
+        var studentGrade = Number(studentGrade);
+        var student = {
+            "name": studentName,
+            "course": course,
+            "grade": studentGrade
+        };
+        student_array.push(student);
+        console.log(student);
+    var new_tr = $('<tr>', {
+        class: 'student_row'
+    });
+    var td_name = $('<td>', {
+        text: studentName
 
+    });
+    var td_course = $('<td>', {
+        text: course
 
+    });
+    var td_grade = $('<td>', {
+        text: studentGrade
+    });
+    var td_operation = $('<td>', {
+        button: "delete",
+        onclick: "student_delete",
+        type: "button",
+        class: "btn btn-danger",
+        text: "Delete"
+    });
+    $(new_tr).append(td_name, td_course, td_grade, td_operation);
+    $('tbody').append(new_tr);
+/*    var sum = 0;
+    for(grade in studentGrade){
+        sum = sum+studentGrade[grade];
+        console.log(studentGrade[grade]);
+    }
+    avgGrade = sum/student_array.length;
+    console.log(avgGrade);
+*/
 
 }
+
 function student_cancel () {
     document.getElementById('studentName').value = '';
     document.getElementById('course').value = '';
@@ -38,11 +77,26 @@ function student_cancel () {
     console.log(studentName);
     console.log(course);
     console.log(studentGrade);
-
 }
+var sum = 0;
+for (var i = 0; i < student_array.length; i++){
+    sum += parseInt(studentGrade[i]);
+}
+var avgGrade = (sum/student_array.length);
+//$(.avgGrade).append(avgGrade);
+console.log(avgGrade);
+
+/*var sum = 0;
+for(grade in studentGrade){
+    sum = sum+studentGrade[grade];
+    console.log(studentGrade[grade]);
+}
+avgGrade = sum/student_array.length;
+console.log(avgGrade);
+*/
 
 // td creation add back into the add button function
-var new_tr = $('<tr>', {
+/*var new_tr = $('<tr>', {
     class: student_row
 });
 var td_name = $('<td>', {
@@ -64,7 +118,8 @@ var td_operation = $('<td>', {
 });
 $(td_tr).append(td_name, td_course, td_grade, td_operation);
 $('tbody').append(td_tr);
-//end td creation
+*/
+ //end td creation
 
 //temp table creation
 /*var student = {};
