@@ -55,14 +55,14 @@ function student_add () {
     });
     $(new_tr).append(td_name, td_course, td_grade, td_operation);
     $('tbody').append(new_tr);
-    var sum = 0;
+/*    var sum = 0;
     for(grade in studentGrade){
         sum = sum+studentGrade[grade];
         console.log(studentGrade[grade]);
     }
     avgGrade = sum/student_array.length;
     console.log(avgGrade);
-
+*/
 
 }
 
@@ -78,48 +78,15 @@ function student_cancel () {
     console.log(course);
     console.log(studentGrade);
 }
-/*var sum = 0;
+var sum = 0;
 for (var i = 0; i < student_array.length; i++){
     sum += parseInt(studentGrade[i]);
 }
 var avgGrade = (sum/student_array.length);
 //$(.avgGrade).append(avgGrade);
 console.log(avgGrade);
-*/
-/*var sum = 0;
-for(grade in studentGrade){
-    sum = sum+studentGrade[grade];
-    console.log(studentGrade[grade]);
-}
-avgGrade = sum/student_array.length;
-console.log(avgGrade);
-*/
 
-// td creation add back into the add button function
-/*var new_tr = $('<tr>', {
-    class: student_row
-});
-var td_name = $('<td>', {
-    text: studentName
 
-    });
-var td_course = $('<td>', {
-    text: course
-
-});
-var td_grade = $('<td>', {
-    text: studentGrade
-    });
-var td_operation = $('<td>', {
-    button: "delete",
-    onclick: "student_delete",
-    type: "button",
-    class: "btn btn-danger"
-});
-$(td_tr).append(td_name, td_course, td_grade, td_operation);
-$('tbody').append(td_tr);
-*/
- //end td creation
 
 //temp table creation
 /*var student = {};
