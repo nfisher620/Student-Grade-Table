@@ -2,49 +2,87 @@ var avgGrade = null;
 var studentName = undefined;
 var course = undefined;
 var studentGrade = undefined;
-var student =null;
+
 /* sample of how the data will be compiled.
 
-var student_table = {name:"name",
-                     course:"course",
-                     grade:"grade"
-                    };
-                    there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
-*/
-//var student_array = [ /*pushing info into array*/ ];
-
-var sum =0;
-    for(var i = 0; i<student_array.length; i++){
-        sum += parseInt(studentGrade[i]);
-    }
-
-var avgGrade = sum/studentGrade.length;
-
-console.log(avgGrade);
-
-
-
-var student_array = [];
-
+ var student_table = {name:"name",
+ course:"course",
+ grade:"grade",
+ element: //point to certain areas in the table
+ };
+ there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
+ */
+var student_array = [ /*pushing info into array*/ ];
 //onclick add function
+
 function student_add () {
     studentName = document.getElementById('studentName').value;
     course = document.getElementById('course').value;
     studentGrade = document.getElementById('studentGrade').value;
-        console.log('working');
-        console.log(studentName);
-        console.log(course);
-        console.log(studentGrade);
-
+    console.log('working');
+    console.log(studentName);
+    console.log(course);
+    console.log(studentGrade);
+    var studentGrade = Number(studentGrade);
+    //object of student with name, course, grade created
     var student = {
         "name": studentName,
         "course": course,
-        "grade":studentGrade,
+        "grade": studentGrade
     };
-
-    student_array.push(student);
+    student_array.push(student); //pushes object of student into student array
     console.log(student);
+    console.log(student_array + "This is the student array");
+
+//create new table row with data shown
+    var new_tr = $('<tr>', {
+        class: 'student_row'
+    });
+    var td_name = $('<td>', {
+        text: studentName
+
+    });
+    var td_course = $('<td>', {
+        text: course
+
+    });
+    var td_grade = $('<td>', {
+        text: studentGrade
+    });
+    var td_operation = $('<td>', {
+        button: "delete",
+        onclick: "student_delete",
+        type: "button",
+        class: "btn btn-danger",
+        text: "Delete"
+    });
+    $(new_tr).append(td_name, td_course, td_grade, td_operation);
+    $('tbody').append(new_tr);
+    // average function
+    calculateAverage();
+    console.log(calculateAverage());
+
+    /*    var sumGrade = 0;
+     for (var i = 0;  i < student_array.length; i++){
+     sumGrade += sumGrade + studentGrade[i];
+     }
+     console.log (sumGrade);
+     */
 }
+    function calculateAverage() {
+        var sum = 0;
+        for (i = 0; i < student_array.length; i++) {
+            sum += Number(student_array[i]['grade']);
+        }
+        var average = sum / student_array.length;
+        var avgGrade = Math.round(average);
+        if (student_array.length === 0) {
+            avgGrade = 0;
+        }
+        $('.avgGrade').text(avgGrade);
+        return avgGrade;
+    }
+
 function student_cancel () {
     document.getElementById('studentName').value = '';
     document.getElementById('course').value = '';
@@ -56,13 +94,35 @@ function student_cancel () {
     console.log(studentName);
     console.log(course);
     console.log(studentGrade);
-
 }
+// average function
+
+/*var sum = 0;
+ for (var i = 0; i < student_array.length; i++){
+ sum += parseInt(studentGrade[i]);
+ }
+ var avgGrade = (sum/student_array.length);
+ //$(.avgGrade).append(avgGrade);
+ console.log(avgGrade);
+ */
+//avg functionality
 
 
+//temp table creation
+/*var student = {};
+ student[name] = "studentName";
+ student[course] = "course";
+ student[grade] = studentGrade;
+ student_array.push(student);
+ */
+/*
+ target_student = [info in here];
+ student_array[target.student].element.addClass('topscore');
+ make for loop to find highest (similar to the lowest loop example)
+ how to do it w/ an object w/ numbers and had a key of grade ie grade: 80?
+ studentGrades[i] > i; i++
 
-student_array[i].name.append();
-student_array[i].course.append();
+ */
 /**
  * Define all global variables here
  */
@@ -107,13 +167,14 @@ student_array[i].course.append();
 
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
+ */
 
- for ( i = 0, i<student_array.length, i++)
-    student_array[i]
-
+/**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
  * into the .student_list tbody
  * @param studentObj
+ * place into the update studentList section
+ *
  */
 
 /** line 50-57 project 4 - resetting the entire table to nothing
