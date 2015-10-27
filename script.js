@@ -3,10 +3,10 @@ var studentName = undefined;
 var course = undefined;
 var studentGrade = 0;
 
-var student_array = [ /*pushing info into array*/ ];
+var student_array = [/*pushing info into array*/];
 //onclick add function
 
-function student_add () {
+function student_add() {
     studentName = document.getElementById('studentName').value;
     course = document.getElementById('course').value;
     studentGrade = document.getElementById('studentGrade').value;
@@ -33,10 +33,10 @@ function student_add () {
 
 //delete button functionality
 
-function student_delete(target_element){
+function student_delete(target_element) {
     console.log($(target_element).attr('student_index'));
     var index = $(target_element).attr('student_index');
-    student_array.splice(index,1);
+    student_array.splice(index, 1);
     $(target_element).parent().remove();
     studentClear();
     updateStudentList();
@@ -50,32 +50,31 @@ function studentClear() {
 }
 //calculate average function
 
-    function calculateAverage() {
-        var sum = 0;
-        var count = 0;
-        for (var i = 0; i < student_array.length; i++) {
-            if (student_array[i] == undefined){
-                student_array.splice(i, 1);
-                console.log('houston... we got a prob');
-                continue;
-            }
-            sum += Number(student_array[i].grade);
-            count++;
-            console.log("calculate average ran, student array is now: " + student_array);
-            console.log("student array ", student_array.length, "i is ", i );
-        }
-        var average = sum / count;
-        var avgGrade = Math.round(average);
-        if (student_array.length === 0) {
-            avgGrade = 0;
-        }
-        $('.avgGrade').text(avgGrade);
-        return avgGrade;
+function calculateAverage() {
+    var sum = 0;
+    var count = 0;
+    for (var i = 0; i < student_array.length; i++) {
+
+        sum += Number(student_array[i].grade);
+        count++;
+        console.log("calculate average ran, student array is now: " + student_array);
+        console.log("student array ", student_array.length, "i is ", i);
+
     }
+
+    var average = sum / count;
+    var avgGrade = Math.round(average);
+    if (student_array.length === 0) {
+        avgGrade = 0;
+    }
+
+    $('.avgGrade').text(avgGrade);
+    return avgGrade;
+}
 
 //cancel button to clear input fields and set global variables to undefined
 
-function student_cancel () {
+function student_cancel() {
     document.getElementById('studentName').value = '';
     document.getElementById('course').value = '';
     document.getElementById('studentGrade').value = '';
@@ -86,7 +85,6 @@ function student_cancel () {
     console.log(studentName);
     console.log(course);
     console.log(studentGrade);
-    studentClear();
 }
 
 /**
@@ -134,9 +132,9 @@ function student_cancel () {
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
-function updateStudentList(){
-    for( var i=0; i<student_array.length; i++){
-        addStudentToDom(student_array[i],i);
+function updateStudentList() {
+    for (var i = 0; i < student_array.length; i++) {
+        addStudentToDom(student_array[i], i);
     }
 }
 
@@ -147,11 +145,10 @@ function updateStudentList(){
  * place into the update studentList section
  *
  */
-function addStudentToDom(student,studentIndex){
+function addStudentToDom(student, studentIndex) {
 
 
 //create new table row with data shown
-
 
 
     var new_tr = $('<tr>', {
@@ -180,7 +177,7 @@ function addStudentToDom(student,studentIndex){
 
 //click function to be called
 
-    td_operation.click(function(){
+    td_operation.click(function () {
         student_delete(this);
     });
     $(new_tr).append(td_name, td_course, td_grade, td_operation);
