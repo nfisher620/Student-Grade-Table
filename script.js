@@ -3,15 +3,6 @@ var studentName = undefined;
 var course = undefined;
 var studentGrade = undefined;
 
-/* sample of how the data will be compiled.
-
- var student_table = {name:"name",
- course:"course",
- grade:"grade",
- element: //point to certain areas in the table
- };
- there's a .val() method that will get you the value of all text input fields (as an array if there are multiple values
- */
 var student_array = [ /*pushing info into array*/ ];
 //onclick add function
 
@@ -33,42 +24,60 @@ function student_add () {
     student_array.push(student); //pushes object of student into student array
     console.log(student);
     console.log(student_array + "This is the student array");
-
 //create new table row with data shown
+
+    var i = student_array.length - 1;
+
     var new_tr = $('<tr>', {
         class: 'student_row'
     });
+
     var td_name = $('<td>', {
         text: studentName
-
     });
+
     var td_course = $('<td>', {
         text: course
-
     });
+
     var td_grade = $('<td>', {
         text: studentGrade
     });
+
     var td_operation = $('<td>', {
         button: "delete",
-        onclick: "student_delete",
         type: "button",
         class: "btn btn-danger",
-        text: "Delete"
+        text: "Delete",
+        student_index: i
+    });
+
+//click function to be called
+
+    td_operation.click(function(){
+        student_delete(this);
     });
     $(new_tr).append(td_name, td_course, td_grade, td_operation);
     $('tbody').append(new_tr);
-    // average function
+    // average function call
     calculateAverage();
     console.log(calculateAverage());
-
-    /*    var sumGrade = 0;
-     for (var i = 0;  i < student_array.length; i++){
-     sumGrade += sumGrade + studentGrade[i];
-     }
-     console.log (sumGrade);
-     */
 }
+
+//delete button functionality
+
+function student_delete(target_element){
+    console.log($(target_element).attr('student_index'));
+    var index = $(target_element).attr('student_index');
+    console.log("this is the index", index);
+    student_array.splice(index, 1);
+    $(target_element).parent().remove();
+    calculateAverage();
+    console.log(calculateAverage());
+}
+
+//calculate average function
+
     function calculateAverage() {
         var sum = 0;
         for (i = 0; i < student_array.length; i++) {
@@ -83,6 +92,8 @@ function student_add () {
         return avgGrade;
     }
 
+//cancel button to clear input fields and set global variables to undefined
+
 function student_cancel () {
     document.getElementById('studentName').value = '';
     document.getElementById('course').value = '';
@@ -95,34 +106,7 @@ function student_cancel () {
     console.log(course);
     console.log(studentGrade);
 }
-// average function
 
-/*var sum = 0;
- for (var i = 0; i < student_array.length; i++){
- sum += parseInt(studentGrade[i]);
- }
- var avgGrade = (sum/student_array.length);
- //$(.avgGrade).append(avgGrade);
- console.log(avgGrade);
- */
-//avg functionality
-
-
-//temp table creation
-/*var student = {};
- student[name] = "studentName";
- student[course] = "course";
- student[grade] = studentGrade;
- student_array.push(student);
- */
-/*
- target_student = [info in here];
- student_array[target.student].element.addClass('topscore');
- make for loop to find highest (similar to the lowest loop example)
- how to do it w/ an object w/ numbers and had a key of grade ie grade: 80?
- studentGrades[i] > i; i++
-
- */
 /**
  * Define all global variables here
  */
