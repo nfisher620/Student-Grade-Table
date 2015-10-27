@@ -1,7 +1,7 @@
 var avgGrade = null;
 var studentName = undefined;
 var course = undefined;
-var studentGrade = undefined;
+var studentGrade = 0;
 
 var student_array = [ /*pushing info into array*/ ];
 //onclick add function
@@ -26,7 +26,7 @@ function student_add () {
     console.log(student_array + "This is the student array");
 //create new table row with data shown
 
-    var i = student_array.length - 1;
+    var studentIndex = student_array.length - 1;
 
     var new_tr = $('<tr>', {
         class: 'student_row'
@@ -49,7 +49,7 @@ function student_add () {
         type: "button",
         class: "btn btn-danger",
         text: "Delete",
-        student_index: i
+        student_index: studentIndex
     });
 
 //click function to be called
@@ -69,19 +69,26 @@ function student_add () {
 function student_delete(target_element){
     console.log($(target_element).attr('student_index'));
     var index = $(target_element).attr('student_index');
-    console.log("this is the index", index);
-    student_array.splice(index, 1);
+    delete student_array[index];
     $(target_element).parent().remove();
     calculateAverage();
     console.log(calculateAverage());
+    console.log("delete ran");
 }
 
 //calculate average function
 
     function calculateAverage() {
         var sum = 0;
-        for (i = 0; i < student_array.length; i++) {
-            sum += Number(student_array[i]['grade']);
+        for (var i = 0; i < student_array.length; i++) {
+            if (student_array[i] == undefined){
+                student_array.splice(i, 1);
+                console.log('houston... we got a prob');
+                //continue;
+            }
+            sum += Number(student_array[i].grade);
+            console.log("calculate average ran, student array is now: " + student_array);
+            console.log("student array ", student_array.length, "i is ", i );
         }
         var average = sum / student_array.length;
         var avgGrade = Math.round(average);
@@ -100,7 +107,7 @@ function student_cancel () {
     document.getElementById('studentGrade').value = '';
     studentName = undefined;
     course = undefined;
-    studentGrade = undefined;
+    studentGrade = 0;
     console.log('cancel working');
     console.log(studentName);
     console.log(course);
