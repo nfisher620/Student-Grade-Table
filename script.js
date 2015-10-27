@@ -24,10 +24,9 @@ function student_add () {
     student_array.push(student); //pushes object of student into student array
     console.log(student);
     console.log(student_array + "This is the student array");
-<<<<<<< HEAD
-=======
+
     var i = student_array.length-1;
->>>>>>> 99d7075cfb132a7e5fb10e6d418809058cf1facd
+
 //create new table row with data shown
 
     var studentIndex = student_array.length - 1;
@@ -53,16 +52,11 @@ function student_add () {
         type: "button",
         class: "btn btn-danger",
         text: "Delete",
-<<<<<<< HEAD
         student_index: studentIndex
     });
 
 //click function to be called
 
-=======
-        student_index:i
-    });
->>>>>>> 99d7075cfb132a7e5fb10e6d418809058cf1facd
     td_operation.click(function(){
         student_delete(this);
     });
@@ -73,7 +67,7 @@ function student_add () {
     console.log(calculateAverage());
 }
 
-<<<<<<< HEAD
+
 //delete button functionality
 
 function student_delete(target_element){
@@ -87,21 +81,6 @@ function student_delete(target_element){
 }
 
 //calculate average function
-=======
-}
-
-function student_delete(target_element){
-    console.log($(target_element).attr('student_index'));
-   var index= $(target_element).attr('student_index');
-    delete student_array[index];
-    $(target_element).parent().remove();
-    console.log(student_array);
-    calculateAverage();
-    console.log(calculateAverage());
-}
-
-
->>>>>>> 99d7075cfb132a7e5fb10e6d418809058cf1facd
 
     function calculateAverage() {
         var sum = 0;
@@ -109,7 +88,7 @@ function student_delete(target_element){
             if (student_array[i] == undefined){
                 student_array.splice(i, 1);
                 console.log('houston... we got a prob');
-                //continue;
+                continue;
             }
             sum += Number(student_array[i].grade);
             console.log("calculate average ran, student array is now: " + student_array);
