@@ -24,45 +24,8 @@ function student_add () {
     student_array.push(student); //pushes object of student into student array
     console.log(student);
     console.log(student_array + "This is the student array");
-
-    var i = student_array.length-1;
-
-//create new table row with data shown
-
-    var studentIndex = student_array.length - 1;
-
-    var new_tr = $('<tr>', {
-        class: 'student_row'
-    });
-
-    var td_name = $('<td>', {
-        text: studentName
-    });
-
-    var td_course = $('<td>', {
-        text: course
-    });
-
-    var td_grade = $('<td>', {
-        text: studentGrade
-    });
-
-    var td_operation = $('<td>', {
-        button: "delete",
-        type: "button",
-        class: "btn btn-danger",
-        text: "Delete",
-        student_index: studentIndex
-    });
-
-//click function to be called
-
-    td_operation.click(function(){
-        student_delete(this);
-    });
-    $(new_tr).append(td_name, td_course, td_grade, td_operation);
-    $('tbody').append(new_tr);
-    // average function call
+//add student to dom code
+    addStudentToDom(student);
     calculateAverage();
     console.log(calculateAverage());
 }
@@ -73,17 +36,23 @@ function student_add () {
 function student_delete(target_element){
     console.log($(target_element).attr('student_index'));
     var index = $(target_element).attr('student_index');
-    delete student_array[index];
+    student_array.splice(index,1);
     $(target_element).parent().remove();
+    studentClear();
+    updateStudentList();
     calculateAverage();
     console.log(calculateAverage());
     console.log("delete ran");
 }
-
+//clear student list function
+function studentClear() {
+    $('tbody').html("");
+}
 //calculate average function
 
     function calculateAverage() {
         var sum = 0;
+        var count = 0;
         for (var i = 0; i < student_array.length; i++) {
             if (student_array[i] == undefined){
                 student_array.splice(i, 1);
@@ -91,10 +60,11 @@ function student_delete(target_element){
                 continue;
             }
             sum += Number(student_array[i].grade);
+            count++;
             console.log("calculate average ran, student array is now: " + student_array);
             console.log("student array ", student_array.length, "i is ", i );
         }
-        var average = sum / student_array.length;
+        var average = sum / count;
         var avgGrade = Math.round(average);
         if (student_array.length === 0) {
             avgGrade = 0;
@@ -116,6 +86,7 @@ function student_cancel () {
     console.log(studentName);
     console.log(course);
     console.log(studentGrade);
+    studentClear();
 }
 
 /**
@@ -163,6 +134,11 @@ function student_cancel () {
 /**
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
+function updateStudentList(){
+    for( var i=0; i<student_array.length; i++){
+        addStudentToDom(student_array[i],i);
+    }
+}
 
 /**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
@@ -171,6 +147,46 @@ function student_cancel () {
  * place into the update studentList section
  *
  */
+function addStudentToDom(student,studentIndex){
+
+
+//create new table row with data shown
+
+
+
+    var new_tr = $('<tr>', {
+        class: 'student_row'
+    });
+
+    var td_name = $('<td>', {
+        text: student.name
+    });
+
+    var td_course = $('<td>', {
+        text: student.course
+    });
+
+    var td_grade = $('<td>', {
+        text: student.grade
+    });
+
+    var td_operation = $('<td>', {
+        button: "delete",
+        type: "button",
+        class: "btn btn-danger",
+        text: "Delete",
+        student_index: studentIndex
+    });
+
+//click function to be called
+
+    td_operation.click(function(){
+        student_delete(this);
+    });
+    $(new_tr).append(td_name, td_course, td_grade, td_operation);
+    $('tbody').append(new_tr);
+    // average function call
+}
 
 /** line 50-57 project 4 - resetting the entire table to nothing
  * reset - resets the application to initial state. Global variables reset, DOM get reset to initial load state
