@@ -72,6 +72,9 @@ function student_delete(target_element){
    var index= $(target_element).attr('student_index');
     delete student_array[index];
     $(target_element).parent().remove();
+    console.log(student_array);
+    calculateAverage();
+    console.log(calculateAverage());
 }
 
 
