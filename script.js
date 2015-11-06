@@ -1,7 +1,8 @@
 /**
- * Define all global variables here
- */
-/**
+
+
+
+
  * student_array - global array to hold student objects
  * @type {Array}
  */
