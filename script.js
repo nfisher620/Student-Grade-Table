@@ -5,7 +5,14 @@ var studentGrade = 0;
 
 var student_array = [/*pushing info into array*/];
 //onclick add function
-
+$(document).ready(function(){
+    $('#add-from-db-button').click(function () {
+        student_populate(this);
+    });
+});
+$(document).ready(function() {
+  //stuff to do on load goes HERE
+});
 function student_add() {
     studentName = document.getElementById('studentName').value;
     course = document.getElementById('course').value;
@@ -86,6 +93,41 @@ function student_cancel() {
     console.log(course);
     console.log(studentGrade);
 }
+
+    function student_populate(button) {
+        console.log('click initiated');
+        $.ajax({
+            dataType: 'json',
+            data: {
+                api_key: "TDDR4ZFpj6",
+            },
+            method: "POST",
+            url: "http://s-apis.learningfuze.com/sgt/get",
+            crossDomain:true,
+            timeout: 3000,
+            success: function (result) {
+                console.log('AJAX Success function called, with the following result:',
+                    result);
+                global_result=result;
+                if(result.success==true){
+                    student_array=result.data;
+                    updateStudentList();
+                }
+                else{
+
+                    alert(result.error[0]);
+                }
+
+            },
+            error: function(){
+                alert('error loading data from server')
+            }
+
+        });
+
+    };
+
+
 
 /**
  * Define all global variables here
