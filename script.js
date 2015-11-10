@@ -6,9 +6,7 @@ var studentGrade = 0;
 var student_array = [/*pushing info into array*/];
 //onclick add function
 $(document).ready(function(){
-    $('#add-from-db-button').click(function () {
-        student_populate(this);
-    });
+    student_populate(this);
 });
 $(document).ready(function() {
   //stuff to do on load goes HERE
@@ -29,6 +27,7 @@ function student_add() {
         "grade": studentGrade
     };
     student_array.push(student); //pushes object of student into student array
+    create_new_student(student);
     console.log(student);
     console.log(student_array + "This is the student array");
 //add student to dom code
@@ -50,6 +49,7 @@ function student_delete(target_element) {
     calculateAverage();
     console.log(calculateAverage());
     console.log("delete ran");
+    delete_student(index);
 }
 //clear student list function
 function studentClear() {
@@ -64,7 +64,7 @@ function calculateAverage() {
 
         sum += Number(student_array[i].grade);
         count++;
-        console.log("calculate average ran, student array is now: " + student_array);
+        console.log("calculate average ran, student array is now: " , student_array);
         console.log("student array ", student_array.length, "i is ", i);
 
     }
@@ -127,8 +127,68 @@ function student_cancel() {
 
     };
 
+function create_new_student(student){
+    console.log("Create new student works");
+    //api_key:the string fo rmy API access
+    //student:object that contains all of this student's data
+    $.ajax({
+        dataType: "json",
+        data: {
+            api_key: "TDDR4ZFpj6",
+            name: student.name,
+            course: student.course,
+            grade:student.grade,
+        },
+        method: "POST",
+        url: "http://s-apis.learningfuze.com/sgt/create",
+        crossDomain: true,
+        success: function (result) {
+            console.log('AJAX Success create new student function called, with the following result:', result);
+            global_result =result;
+            if (result.success === true) {
+                student_array =result.data;
+                updateStudentList();
+                return result;
+            }
+            else {
+                alert(result.error);
+            }
+        },
+        error: function () {
+            alert("error loading data from server")
+        }
+    })
+}
 
 
+function delete_student(index){
+    console.log("Delete student_working");
+    console.log(index);
+    $.ajax({
+        dataType:"json",
+        data: {
+            api_key: "TDDR4ZFpj6",
+            student_id:index,
+        },
+        method:"POST",
+        url:"http://s-apis.learningfuze.com/sgt/delete",
+        crossDomain:true,
+        success:function(delete_student_result){
+            console.log("AJAX Success create delete student function called, with the following result:", delete_student_result);
+            global_result=delete_student_result;
+            if(delete_student_result.success===true) {
+                student_array = delete_student_result.data;
+                updateStudentList();
+            }
+            else{
+                alert(delete_student_result.error);
+            }
+        },
+
+
+
+    })
+}
 /**
  * Define all global variables here
  */
@@ -214,7 +274,7 @@ function addStudentToDom(student, studentIndex) {
         type: "button",
         class: "btn btn-danger",
         text: "Delete",
-        student_index: studentIndex
+        student_index: student.id,
     });
 
 //click function to be called
