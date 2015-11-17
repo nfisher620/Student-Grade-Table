@@ -235,11 +235,11 @@ function delete_student(index){
  * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
  */
 function updateStudentList() {
+    clear_list();
     for (var i = 0; i < student_array.length; i++) {
         addStudentToDom(student_array[i], i);
     }
 }
-
 /**
  * addStudentToDom - take in a student object, create html elements from the values and then append the elements
  * into the .student_list tbody
@@ -295,3 +295,34 @@ function addStudentToDom(student, studentIndex) {
 /**
  * Listen for the document to load and reset the data to the initial state
  */
+ function sortGrade() {
+    student_array.sort(function (a, b) {
+        if (a.grade < b.grade) return -1;
+        if (a.grade > b.grade) return 1;
+        return 0;
+        console.log("Sort grade working");
+    });
+    updateStudentList();
+}
+function sortName(){
+    student_array.sort(function (a,b){
+        if(a.name < b.name) return-1;
+        if(a.name > b.name) return 1;
+        return 0;
+        console.log("Sort Name working");
+    });
+    updateStudentList();
+}
+
+function sortCourse(){
+    student_array.sort(function(a,b){
+        if(a.course < b.course) return -1;
+        if(a.course > b.course) return 1;
+        return 0;
+        console.log("Sort Course working");
+    });
+       updateStudentList();
+}
+function clear_list(){
+    $("tbody").html("");
+}
