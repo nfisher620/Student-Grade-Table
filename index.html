@@ -43,18 +43,14 @@
         </div>
         <button type="button" class="btn btn-success" onclick="student_add(this)">Add</button>
         <button type="button" class="btn btn-default" onclick="student_cancel(this)">Cancel</button>
-        <button type="button" id="add-from-db-button" class="btn btn-primary">Populate from DB</button>
-        <button type="button" class="btn btn-primary" onclick="sortGrade(this)">Sort Grades</button>
-        <button type="button" class="btn btn-primary" onclick="sortName(this)">Sort Names</button>
-        <button type="button" class="btn btn-primary" onclick="sortCourse(this)">Sort Courses</button>
     </div>
     <div class="student-list-container row col-md-9">
         <table class="table student-list">
             <thead>
             <tr>
-                <th>Student Name</th>
-                <th>Student Course</th>
-                <th>Student Grade</th>
+                <th><span class="glyphicon glyphicon-sort-by-alphabet" onclick="sortName(this)"></span>Student Name <span class="glyphicon glyphicon-sort-by-alphabet-alt" onclick="sortNameZtoA(this)"></span></th>
+                <th><span class="glyphicon glyphicon-sort-by-alphabet"onclick="sortCourse(this)" ></span>Student Course <span class="glyphicon glyphicon-sort-by-alphabet-alt" onclick="sortCourseZtoA(this)"></span></th>
+                <th><span class="glyphicon glyphicon-sort-by-order" onclick="sortGrade(this)"></span>Student Grade<span class="glyphicon glyphicon-sort-by-order-alt" onclick="sortGradebottom(this)"></span></th>
                 <th>Operations</th>
             </tr>
             </thead>

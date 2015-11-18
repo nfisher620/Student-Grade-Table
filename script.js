@@ -7,9 +7,7 @@ var student_array = [/*pushing info into array*/];
 //onclick add function
 $(document).ready(function(){
     student_populate(this);
-});
-$(document).ready(function() {
-  //stuff to do on load goes HERE
+    calculateAverage();
 });
 function student_add() {
     studentName = document.getElementById('studentName').value;
@@ -28,6 +26,7 @@ function student_add() {
     };
     student_array.push(student); //pushes object of student into student array
     create_new_student(student);
+    student_populate();
     console.log(student);
     console.log(student_array + "This is the student array");
 //add student to dom code
@@ -42,11 +41,11 @@ function student_add() {
 function student_delete(target_element) {
     console.log($(target_element).attr('student_index'));
     var index = $(target_element).attr('student_index');
-    student_array.splice(index, 1);
-    $(target_element).parent().remove();
+    //student_array.splice(index, 1);
+    //$(target_element).parent().remove();
     studentClear();
-    updateStudentList();
-    calculateAverage();
+    //updateStudentList();
+    //calculateAverage();
     console.log(calculateAverage());
     console.log("delete ran");
     delete_student(index);
@@ -112,6 +111,7 @@ function student_cancel() {
                 if(result.success==true){
                     student_array=result.data;
                     updateStudentList();
+                    calculateAverage();
                 }
                 else{
 
@@ -119,12 +119,25 @@ function student_cancel() {
                 }
 
             },
-            error: function(){
-                alert('error loading data from server')
+                error: function(jqXHR, exception) {
+                    if (jqXHR.status === 0) {
+                        alert('Not connect.n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        alert('Requested page not found. [404]');
+                    } else if (jqXHR.status == 500) {
+                        alert('Internal Server Error [500].');
+                    } else if (exception === 'parsererror') {
+                        alert('Requested JSON parse failed.');
+                    } else if (exception === 'timeout') {
+                        alert('Time out error.');
+                    } else if (exception === 'abort') {
+                        alert('Ajax request aborted.');
+                    } else {
+                        alert('Uncaught Error.n' + jqXHR.responseText);
+                    }
             }
 
         });
-
     };
 
 function create_new_student(student){
@@ -178,7 +191,8 @@ function delete_student(index){
             global_result=delete_student_result;
             if(delete_student_result.success===true) {
                 student_array = delete_student_result.data;
-                updateStudentList();
+                //updateStudentList();
+                student_populate();
             }
             else{
                 alert(delete_student_result.error);
@@ -304,12 +318,32 @@ function addStudentToDom(student, studentIndex) {
     });
     updateStudentList();
 }
+function sortGradebottom() {
+    student_array.sort(function (a, b) {
+        if (a.grade > b.grade) return -1;
+        if (a.grade < b.grade) return 1;
+        return 0;
+        console.log("Sort grade bottom working");
+    });
+    updateStudentList();
+}
+
+
 function sortName(){
     student_array.sort(function (a,b){
         if(a.name < b.name) return-1;
         if(a.name > b.name) return 1;
         return 0;
         console.log("Sort Name working");
+    });
+    updateStudentList();
+}
+function sortNameZtoA() {
+    student_array.sort(function (a, b) {
+        if (a.name > b.name) return -1;
+        if (a.name < b.name) return 1;
+        return 0;
+        console.log("Z to A working");
     });
     updateStudentList();
 }
@@ -323,6 +357,16 @@ function sortCourse(){
     });
        updateStudentList();
 }
+function sortCourseZtoA(){
+    student_array.sort(function(a,b){
+        if(a.course > b.course) return -1;
+        if(a.course < b.course) return 1;
+        return 0;
+        console.log("Sort Course Z to A working");
+    });
+    updateStudentList();
+}
+
 function clear_list(){
     $("tbody").html("");
 }
