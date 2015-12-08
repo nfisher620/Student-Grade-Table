@@ -98,80 +98,84 @@ function student_cancel() {
         $.ajax({
             dataType: 'json',
             //data: {
-                //api_key: "TDDR4ZFpj6",
+            //api_key: "TDDR4ZFpj6",
             //},
             method: "GET",
             //url: "http://s-apis.learningfuze.com/sgt/get",
-            url:'populate.php',
+            url: "populate.php",
             //crossDomain:true,
             //timeout: 3000,
             success: function (result) {
                 console.log('AJAX Success function called, with the following result:',
                     result);
-                global_result=result;
-                if(result.success==true){
-                    student_array=result.data;
+                global_result = result;
+
+                if (result.success == true) {
+                    student_array = result.data;
                     updateStudentList();
                     calculateAverage();
                 }
-                else{
-
-                    alert(result.error[0]);
-                }
-
-            },
-                error: function(jqXHR, exception) {
-                    if (jqXHR.status === 0) {
-                        alert('Not connect.n Verify Network.');
-                    } else if (jqXHR.status == 404) {
-                        alert('Requested page not found. [404]');
-                    } else if (jqXHR.status == 500) {
-                        alert('Internal Server Error [500].');
-                    } else if (exception === 'parsererror') {
-                        alert('Requested JSON parse failed.');
-                    } else if (exception === 'timeout') {
-                        alert('Time out error.');
-                    } else if (exception === 'abort') {
-                        alert('Ajax request aborted.');
-                    } else {
-                        alert('Uncaught Error.n' + jqXHR.responseText);
-                    }
             }
+            //    else{
+            //
+            //        alert(result.error[0]);
+            //    }
+            //
+            //},
+            //    error: function(jqXHR, exception) {
+            //        if (jqXHR.status === 0) {
+            //            alert('Not connect.n Verify Network.');
+            //        } else if (jqXHR.status == 404) {
+            //            alert('Requested page not found. [404]');
+            //        } else if (jqXHR.status == 500) {
+            //            alert('Internal Server Error [500].');
+            //        } else if (exception === 'parsererror') {
+            //            alert('Requested JSON parse failed.');
+            //        } else if (exception === 'timeout') {
+            //            alert('Time out error.');
+            //        } else if (exception === 'abort') {
+            //            alert('Ajax request aborted.');
+            //        } else {
+            //            alert('Uncaught Error.n' + jqXHR.responseText);
+            //        }
+            //}
 
+            //     });
+            //};
         });
-    };
-
-function create_new_student(student){
+    }
+function create_new_student(student) {
     console.log("Create new student works");
-    //api_key:the string fo rmy API access
+    console.log(student);
+    //api_key:the string for my API access
     //student:object that contains all of this student's data
     $.ajax({
         dataType: "json",
         data: {
-            api_key: "TDDR4ZFpj6",
+            //    api_key: "TDDR4ZFpj6",
             name: student.name,
             course: student.course,
-            grade:student.grade,
-        },
-        method: "POST",
-        url: "http://s-apis.learningfuze.com/sgt/create",
-        crossDomain: true,
-        success: function (result) {
-            console.log('AJAX Success create new student function called, with the following result:', result);
-            global_result =result;
-            if (result.success === true) {
-                student_array =result.data;
-                updateStudentList();
-                return result;
+            grade: student.grade,
+            },
+            method: "POST",
+            url: "create.php",
+            //crossDomain: true,
+            success: function (result) {
+                console.log('AJAX Success create new student function called, with the following result:', result);
+                global_result = result;
+                if (result.success == true) {
+                    student_array = result.data;
+                    updateStudentList();
+                    return result;
+                }
+                else {
+                    alert(result.error);
+                }
+            },
+            error: function () {
+                alert("error loading data from server")
             }
-            else {
-                alert(result.error);
-            }
-        },
-        error: function () {
-            alert("error loading data from server")
-        }
-    })
+        })
 }
 
 
@@ -204,64 +208,13 @@ function delete_student(index){
 
     })
 }
-/**
- * Define all global variables here
- */
-/**
- * student_array - global array to hold student objects
- * @type {Array}
- */
-
-/**
- * inputIds - id's of the elements that are used to add students
- * @type {string[]}
- */
-
-/**!Line 14 - 30- 1 project
- * addClicked - Event Handler when user clicks the add button
- * example onclick = "id=student_add"
- */
-
-/**
- * cancelClicked - Event Handler when user clicks the cancel button, should clear out student form
- * example onclick = "id=student_cancel"
- */
-
-/**
- * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
- * object {}; add the students info from previous data entry
- * @return undefined
- */
-
-/**
- * clearAddStudentForm - clears out the form values based on inputIds variable
- */
-
-/**line 32- 35 2 project
- * calculateAverage - loop through the global student array and calculate average grade and return that value
- *
- * @returns {number}
- */
-
-/** double check lines 37-48 project 3* updateData - centralized function to update the average and call student list update
- */
-
-/**
- * updateStudentList - loops through global student array and appends each objects data into the student-list-container > list-body
- */
 function updateStudentList() {
     clear_list();
     for (var i = 0; i < student_array.length; i++) {
         addStudentToDom(student_array[i], i);
     }
 }
-/**
- * addStudentToDom - take in a student object, create html elements from the values and then append the elements
- * into the .student_list tbody
- * @param studentObj
- * place into the update studentList section
- *
- */
+
 function addStudentToDom(student, studentIndex) {
 
 
