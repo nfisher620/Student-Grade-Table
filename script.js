@@ -97,13 +97,14 @@ function student_cancel() {
         console.log('click initiated');
         $.ajax({
             dataType: 'json',
-            data: {
-                api_key: "TDDR4ZFpj6",
-            },
-            method: "POST",
-            url: "http://s-apis.learningfuze.com/sgt/get",
-            crossDomain:true,
-            timeout: 3000,
+            //data: {
+                //api_key: "TDDR4ZFpj6",
+            //},
+            method: "GET",
+            //url: "http://s-apis.learningfuze.com/sgt/get",
+            url:'populate.php',
+            //crossDomain:true,
+            //timeout: 3000,
             success: function (result) {
                 console.log('AJAX Success function called, with the following result:',
                     result);
