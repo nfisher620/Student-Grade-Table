@@ -6,7 +6,7 @@ var studentGrade = 0;
 var student_array = [/*pushing info into array*/];
 //onclick add function
 $(document).ready(function(){
-    student_populate(this);
+    student_populate();
     calculateAverage();
 });
 function student_add() {
@@ -40,12 +40,12 @@ function student_add() {
 
 function student_delete(target_element) {
     console.log($(target_element).attr('student_index'));
-    var index = $(target_element).attr('student_index');
-    //student_array.splice(index, 1);
-    //$(target_element).parent().remove();
+    var index = $(target_element).attr('index');
+    student_array.splice(index, 1);
+    $(target_element).parent().remove();
     studentClear();
-    //updateStudentList();
-    //calculateAverage();
+    updateStudentList();
+    calculateAverage();
     console.log(calculateAverage());
     console.log("delete ran");
     delete_student(index);
@@ -155,7 +155,7 @@ function create_new_student(student) {
             //    api_key: "TDDR4ZFpj6",
             name: student.name,
             course: student.course,
-            grade: student.grade,
+            grade: student.grade
             },
             method: "POST",
             url: "create.php",
@@ -164,20 +164,19 @@ function create_new_student(student) {
                 console.log('AJAX Success create new student function called, with the following result:', result);
                 global_result = result;
                 if (result.success == true) {
-                    student_array = result.data;
+                    //student_array = result.data;
                     updateStudentList();
                     return result;
                 }
                 else {
-                    alert(result.error);
+                    console.log(result.error);
                 }
             },
             error: function () {
-                alert("error loading data from server")
+                console.log("error loading data from server")
             }
         })
 }
-
 
 function delete_student(index){
     console.log("Delete student_working");
@@ -185,11 +184,11 @@ function delete_student(index){
     $.ajax({
         dataType:"json",
         data: {
-            api_key: "TDDR4ZFpj6",
+            //api_key: "TDDR4ZFpj6",
             student_id:index,
         },
         method:"POST",
-        url:"http://s-apis.learningfuze.com/sgt/delete",
+        url:'http://localhost:8888/lfz/SGT/deletestudent.php',
         crossDomain:true,
         success:function(delete_student_result){
             console.log("AJAX Success create delete student function called, with the following result:", delete_student_result);
@@ -197,10 +196,10 @@ function delete_student(index){
             if(delete_student_result.success===true) {
                 student_array = delete_student_result.data;
                 //updateStudentList();
-                student_populate();
+                updateStudentList();
             }
             else{
-                alert(delete_student_result.error);
+                //alert(delete_student_result.error);
             }
         },
 
@@ -242,13 +241,16 @@ function addStudentToDom(student, studentIndex) {
         type: "button",
         class: "btn btn-danger",
         text: "Delete",
-        student_index: student.id,
+        student_index: student.id
     });
 
+    td_operation.attr('index', studentIndex);
 //click function to be called
 
     td_operation.click(function () {
+        delete_student($(this).attr('student_index'));
         student_delete(this);
+
     });
     $(new_tr).append(td_name, td_course, td_grade, td_operation);
     $('tbody').append(new_tr);
