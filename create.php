@@ -10,7 +10,7 @@ $course = addslashes(trim($_POST['course']));
 //$name = $_POST['name'];
 //$name = Nichole"; $new_query = "DELETE * FROM `SGT_3`"; mysqli_query($conn, $new_query)
 //$course = $_POST['course'];
-$grade = $_POST['grade'];
+$grade = (int)$_POST['grade'];
 //$query = "INSERT INTO `SGT_3`( `name`, `course`, `grade`) VALUES ('$name', '$course', '$grade')";
 //mysqli_query($conn, $query);
 //
