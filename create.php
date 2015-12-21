@@ -1,4 +1,5 @@
 <?php
+
 require('populate_connect.php');
 require('regex_test.php');
 
@@ -38,9 +39,6 @@ else{
     $output['errors'] = "Oh no what happened";
     print(json_encode($output));
 }
-
-
-
 ?>
 
 
