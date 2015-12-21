@@ -13,10 +13,9 @@ function student_add() {
     studentName = document.getElementById('studentName').value;
     course = document.getElementById('course').value;
     studentGrade = document.getElementById('studentGrade').value;
-    console.log('working');
-    console.log(studentName);
-    console.log(course);
-    console.log(studentGrade);
+    console.log("Student:",studentName);
+    console.log("Course:", course);
+    console.log("Grade:", studentGrade);
     var studentGrade = Number(studentGrade);
     //object of student with name, course, grade created
     var student = {
@@ -27,7 +26,6 @@ function student_add() {
     student_array.push(student); //pushes object of student into student array
     create_new_student(student);
     student_populate();
-    console.log(student);
     console.log(student_array + "This is the student array");
 //add student to dom code
     addStudentToDom(student);
@@ -37,7 +35,6 @@ function student_add() {
 
 
 //delete button functionality
-
 function student_delete(target_element) {
     console.log($(target_element).attr('student_index'));
     var index = $(target_element).attr('index');
@@ -46,9 +43,8 @@ function student_delete(target_element) {
     studentClear();
     updateStudentList();
     calculateAverage();
-    console.log(calculateAverage());
-    console.log("delete ran");
-    delete_student(index);
+    console.log("Delete ran");
+    delete_student_button(index);
 }
 //clear student list function
 function studentClear() {
@@ -63,9 +59,6 @@ function calculateAverage() {
 
         sum += Number(student_array[i].grade);
         count++;
-        console.log("calculate average ran, student array is now: " , student_array);
-        console.log("student array ", student_array.length, "i is ", i);
-
     }
 
     var average = sum / count;
@@ -94,7 +87,7 @@ function student_cancel() {
 }
 
     function student_populate(button) {
-        console.log('click initiated');
+        console.log('Student Populate ran');
         $.ajax({
             dataType: 'json',
             //data: {
@@ -106,7 +99,7 @@ function student_cancel() {
             //crossDomain:true,
             //timeout: 3000,
             success: function (result) {
-                console.log('AJAX Success function called, with the following result:',
+                console.log('AJAX Success student_populate function called, with the following result:',
                     result);
                 global_result = result;
 
@@ -146,7 +139,7 @@ function student_cancel() {
     }
 function create_new_student(student) {
     console.log("Create new student works");
-    console.log(student);
+    console.log("STUDENT", student);
     //api_key:the string for my API access
     //student:object that contains all of this student's data
     $.ajax({
@@ -159,7 +152,6 @@ function create_new_student(student) {
             },
             method: "POST",
             url: "create.php",
-            //crossDomain: true,
             success: function (result) {
                 console.log('AJAX Success create new student function called, with the following result:', result);
                 global_result = result;
@@ -178,9 +170,8 @@ function create_new_student(student) {
         })
 }
 
-function delete_student(index){
+function delete_student_button(index){
     console.log("Delete student_working");
-    console.log(index);
     $.ajax({
         dataType:"json",
         data: {
@@ -195,7 +186,6 @@ function delete_student(index){
             global_result=delete_student_result;
             if(delete_student_result.success===true) {
                 student_array = delete_student_result.data;
-                //updateStudentList();
                 updateStudentList();
             }
             else{
@@ -218,8 +208,6 @@ function addStudentToDom(student, studentIndex) {
 
 
 //create new table row with data shown
-
-
     var new_tr = $('<tr>', {
         class: 'student_row'
     });
@@ -248,7 +236,7 @@ function addStudentToDom(student, studentIndex) {
 //click function to be called
 
     td_operation.click(function () {
-        delete_student($(this).attr('student_index'));
+        delete_student_button($(this).attr('student_index'));
         student_delete(this);
 
     });
