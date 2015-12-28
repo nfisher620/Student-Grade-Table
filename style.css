@@ -1,0 +1,11 @@
+@media only screen and (max-width: 401px) {
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        position: relative;
+        top: -35vh;
+        right: -61vw;
+    }
+
+}

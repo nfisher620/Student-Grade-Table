@@ -8,7 +8,7 @@ var student_array = [/*pushing info into array*/];
 $(document).ready(function(){
 	student_populate();
 	calculateAverage();
-    highlightMinMaxStudent();
+    //highlightMinMaxStudent();
 });
 function student_add() {
 	studentName = document.getElementById('studentName').value;
@@ -83,7 +83,7 @@ function student_cancel() {
 	studentGrade = 0;
 }
 
-	function student_populate(button) {
+	function student_populate() {
 		console.log('Student Populate ran');
 		$.ajax({
 			dataType: 'json',
@@ -104,7 +104,7 @@ function student_cancel() {
 					student_array = result.data;
 					updateStudentList();
 					calculateAverage();
-					highlightMinMaxStudent();
+					//highlightMinMaxStudent();
 				}
 			}
 			//    else{
@@ -156,7 +156,7 @@ function create_new_student(student) {
 				if (result.success == true) {
 					//student_array = result.data;
 					updateStudentList();
-                    highlightMinMaxStudent();
+                    //highlightMinMaxStudent();
 					return result;
 				}
 				else {
@@ -200,7 +200,7 @@ function updateStudentList() {
 	clear_list();
 	for (var i = 0; i < student_array.length; i++) {
 		addStudentToDom(student_array[i], i);
-        highlightMinMaxStudent();
+        //highlightMinMaxStudent();
 	}
 }
 
@@ -242,7 +242,7 @@ function addStudentToDom(student, studentIndex) {
 	});
 	$(new_tr).append(td_name, td_course, td_grade, td_operation);
 	$('tbody').append(new_tr);
-	highlightMinMaxStudent();
+	//highlightMinMaxStudent();
 }
 
 /** line 50-57 project 4 - resetting the entire table to nothing
@@ -314,32 +314,32 @@ function sortCourseZtoA(){
 function clear_list(){
 	$("tbody").html("");
 }
-function highlightMinMaxStudent(){
-		//remove previous highlighting
-			$("tr").removeAttr("style");
-		//Set the min & max to the grade value of the first index in array
-		var min = student_array[0].grade;
-		var max = student_array[0].grade;
-	   //iterate through array and find the min & max grade value
-			for(var i = 1; i < student_array.length; i++){
-				if(student_array[i].grade > max){
-						max = student_array[i].grade;
-					}
-				if(student_array[i].grade < min){
-						min = student_array[i].grade;
-					}
-			}
-
-			//highlight the rows with a grade that matches the min or max
-			   var gradeCells = $("td:nth-child(3)");
-		for(var j = 0; j < gradeCells.length; j++){
-				//check the value of each grade cell
-			var $currentCell = $(gradeCells)[j];
-				var gradeValue = $($currentCell).text();
-				if(gradeValue == max){
-						$($currentCell).parent().css("background-color", "#b3ffb3");
-					} else if (gradeValue == min) {
-						$($currentCell).parent().css("background-color", "#ffd9b3");
-					}
-			}
-	}
+//function highlightMinMaxStudent(){
+//		//remove previous highlighting
+//			$("tr").removeAttr("style");
+//		//Set the min & max to the grade value of the first index in array
+//		var min = student_array[0].grade;
+//		var max = student_array[0].grade;
+//	   //iterate through array and find the min & max grade value
+//			for(var i = 1; i < student_array.length; i++){
+//				if(student_array[i].grade > max){
+//						max = student_array[i].grade;
+//					}
+//				if(student_array[i].grade < min){
+//						min = student_array[i].grade;
+//					}
+//			}
+//
+//			//highlight the rows with a grade that matches the min or max
+//			   var gradeCells = $("td:nth-child(3)");
+//		for(var j = 0; j < gradeCells.length; j++){
+//				//check the value of each grade cell
+//			var $currentCell = $(gradeCells)[j];
+//				var gradeValue = $($currentCell).text();
+//				if(gradeValue == max){
+//						$($currentCell).parent().css("background-color", "#b3ffb3");
+//					} else if (gradeValue == min) {
+//						$($currentCell).parent().css("background-color", "#ffd9b3");
+//					}
+//			}
+//	}
