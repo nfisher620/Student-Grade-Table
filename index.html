@@ -13,6 +13,10 @@
                 left: 872px;
                 top: 26vh;
             }
+            .col-md-9 {
+                width: 75%;
+                top: -4.5vh;
+            }
 
         }
         @media only screen and (min-width: 992px) and (max-width:1199px) {
@@ -20,6 +24,10 @@
                 position: relative;
                 left: 721px;
                 top: 26vh;
+            }
+            .col-md-9 {
+                width: 75%;
+                top: -4.5vh;
             }
         }
         tr .glyphicon {
@@ -70,9 +78,9 @@
         <table class="table student-list">
             <thead>
             <tr>
-                <th>Student Name<span class="glyphicon glyphicon-sort-by-alphabet" onclick="sortName(this)"></span> <span class="glyphicon glyphicon-sort-by-alphabet-alt" onclick="sortNameZtoA(this)"></span></th>
-                <th>Student Course<span class="glyphicon glyphicon-sort-by-alphabet"onclick="sortCourse(this)"></span> <span class="glyphicon glyphicon-sort-by-alphabet-alt" onclick="sortCourseZtoA(this)"></span></th>
-                <th>Student Grade<span class="glyphicon glyphicon-sort-by-order" onclick="sortGrade(this)"></span><span class="glyphicon glyphicon-sort-by-order-alt" onclick="sortGradebottom(this)"></span></th>
+                <th>Student Name<span class="glyphicon glyphicon-triangle-bottom" onclick="sortName(this)"></span> <span class="glyphicon glyphicon-triangle-top" onclick="sortNameZtoA(this)"></span></th>
+                <th>Student Course<span class="glyphicon glyphicon-triangle-bottom"onclick="sortCourse(this)"></span> <span class="glyphicon glyphicon-triangle-top" onclick="sortCourseZtoA(this)"></span></th>
+                <th>Student Grade<span class="glyphicon glyphicon-triangle-bottom" onclick="sortGrade(this)"></span><span class="glyphicon glyphicon-triangle-top" onclick="sortGradebottom(this)"></span></th>
                 <th>Operations</th>
             </tr>
             </thead>
