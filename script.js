@@ -178,7 +178,7 @@ function delete_student_button(index){
 			student_id:index,
 		},
 		method:"POST",
-		url:'http://localhost:8888/lfz/SGT/deletestudent.php',
+		url:'deletestudent.php',
 		crossDomain:true,
 		success:function(delete_student_result){
 			console.log("AJAX Success create delete student function called, with the following result:", delete_student_result);
