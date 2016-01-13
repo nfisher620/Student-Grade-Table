@@ -1,46 +1,54 @@
 <!doctype html>
-<html>
+<html ng-app="SGTApp">
 <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
+    <!--<script src="script.js"></script>-->
+    <script src="formController.js"></script>
+    <title>Student Grade Table</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        @media only screen and (min-width: 1200px) and (max-width:4300px) {
+        @media only screen and (min-width: 1200px) and (max-width: 4300px) {
             .buttons {
                 position: relative;
                 left: 872px;
                 top: 26vh;
             }
+
             .col-md-9 {
                 width: 75%;
                 top: -4.5vh;
             }
 
         }
-        @media only screen and (min-width: 992px) and (max-width:1199px) {
+
+        @media only screen and (min-width: 992px) and (max-width: 1199px) {
             .buttons {
                 position: relative;
                 left: 721px;
                 top: 26vh;
             }
+
             .col-md-9 {
                 width: 75%;
                 top: -4.5vh;
             }
         }
+
         tr .glyphicon {
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container" ng-controller="formController as fc">
     <div class="page-header row">
         <!-- only show this element when the isnt on mobile -->
         <h1 class="hidden-xs col-md-12"><strong>Student Grade Table</strong>
-            <small class="pull-right col-xs-4"><strong>Grade Average : </strong><span class="avgGrade label label-default"></span></small>
+            <small class="pull-right col-xs-4"><strong>Grade Average : </strong><span
+                    class="avgGrade label label-default"></span></small>
         </h1>
         <!-- only show this element when the user gets to a mobile version -->
         <h3 class="visible-xs col-xs-6"><strong>Student Grade Table</strong>
@@ -49,40 +57,57 @@
     </div>
     <div class="student-add-form row col-md-3 form-horizontal pull-right">
         <h4><strong>Add Student</strong></h4>
+
         <div class="input-group form-group">
-            <span class = "input-group-addon">
+            <span class="input-group-addon">
                 <span class="glyphicon glyphicon-user"></span>
             </span>
-            <input type="text" class="form-control" name="studentName" id="studentName" placeholder="Student Name" pattern="/[A-Za-z\- ]*/" required>
-        </div>
-        <div class = "input-group form-group">
-            <span class = "input-group-addon">
-                <span class = "glyphicon glyphicon-list-alt"></span>
-            </span>
-            <input type = "text" data-fv-regexp-regexp ="/[ A-Za-z\-0-9]*/" required class="form-control" name="course" id="course"
-                   placeholder="Student Course" data-fv-regexp-message="The course must be longer than two characters">
+            <input type="text" ng-model="fc.student.name" required class="form-control" name="name" id="name"
+                   placeholder="Student Name">
         </div>
         <div class="input-group form-group">
-            <span class= "input-group-addon">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-list-alt"></span>
+            </span>
+            <input type="text" ng-model="fc.student.course" required class="form-control" name="course"
+                   id="course"
+                   placeholder="Student Course">
+        </div>
+        <div class="input-group form-group">
+            <span class="input-group-addon">
                 <span class="glyphicon glyphicon-education"></span>
             </span>
-            <input type="text" class="form-control" name="studentGrade" id="studentGrade"
-                   placeholder="Student Grade" pattern="/^100$|^[1-9]?[0-9]$/" required>
+            <input type="text" ng-model="fc.student.grade" required class= "form-control" name="grade" id="grade"
+                   placeholder="Student Grade">
         </div>
     </div>
     <div class="buttons input-group">
-        <button type="button" class="btn btn-success" onclick="student_add(this)">Add</button>
-        <button type="button" class="btn btn-default" onclick="student_cancel(this)">Cancel</button>
+        <button ng-click="fc.addStudent()">Add Student</button>
+        <button ng-click="fc.student = {}">Clear Form</button>
+        <!--<button type="button" class="btn btn-success" onclick="student_add(this)">Add</button>-->
+        <!--<button type="button" class="btn btn-default" onclick="student_cancel(this)">Cancel</button>-->
     </div>
     <div class="student-list-container row col-md-9">
         <table class="table student-list">
             <thead>
             <tr>
-                <th>Student Name<span class="glyphicon glyphicon-triangle-bottom" onclick="sortName(this)"></span> <span class="glyphicon glyphicon-triangle-top" onclick="sortNameZtoA(this)"></span></th>
-                <th>Student Course<span class="glyphicon glyphicon-triangle-bottom"onclick="sortCourse(this)"></span> <span class="glyphicon glyphicon-triangle-top" onclick="sortCourseZtoA(this)"></span></th>
-                <th>Student Grade<span class="glyphicon glyphicon-triangle-bottom" onclick="sortGrade(this)"></span><span class="glyphicon glyphicon-triangle-top" onclick="sortGradebottom(this)"></span></th>
+                <th>Student Name<span class="glyphicon glyphicon-triangle-bottom" onclick="sortName(this)"></span> <span
+                        class="glyphicon glyphicon-triangle-top" onclick="sortNameZtoA(this)"></span></th>
+                <th>Student Course<span class="glyphicon glyphicon-triangle-bottom" onclick="sortCourse(this)"></span>
+                    <span class="glyphicon glyphicon-triangle-top" onclick="sortCourseZtoA(this)"></span></th>
+                <th>Student Grade<span class="glyphicon glyphicon-triangle-bottom"
+                                       onclick="sortGrade(this)"></span><span class="glyphicon glyphicon-triangle-top"
+                                                                              onclick="sortGradebottom(this)"></span>
+                </th>
                 <th>Operations</th>
             </tr>
+            <tr ng-repeat="student in fc.students">
+                <td>{{ student.name }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.grade }}</td>
+                <td>
+                    <button ng-click="fc.students.splice($index, 1)">Delete</button>
+                </td>
             </thead>
             <tbody>
             </tbody>
