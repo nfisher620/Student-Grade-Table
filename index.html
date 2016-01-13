@@ -82,8 +82,8 @@
         </div>
     </div>
     <div class="buttons input-group">
-        <button ng-click="fc.addStudent()">Add Student</button>
-        <button ng-click="fc.student = {}">Clear Form</button>
+        <button ng-click="fc.addStudent()" class="btn btn-success">Add Student</button>
+        <button ng-click="fc.student = {}" class="btn btn-secondary">Clear Form</button>
         <!--<button type="button" class="btn btn-success" onclick="student_add(this)">Add</button>-->
         <!--<button type="button" class="btn btn-default" onclick="student_cancel(this)">Cancel</button>-->
     </div>
@@ -106,7 +106,7 @@
                 <td>{{ student.course }}</td>
                 <td>{{ student.grade }}</td>
                 <td>
-                    <button ng-click="fc.students.splice($index, 1)">Delete</button>
+                    <button ng-click="fc.students.splice($index, 1)" class="btn btn-danger">Delete</button>
                 </td>
             </thead>
             <tbody>
